@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<button onclick="startStream()">Play</button>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        function playVideo(stream = 'shubham', id = 'video') {
+            const video = document.createElement('video');
+            const heading = document.createElement('h1');
+            heading.innerText = 'Streamer: ' + stream;
+            document.body.appendChild(heading);
+            video.setAttribute('id', id);
+            document.body.appendChild(video);
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource('http://13.126.194.8:8080/hls/' + stream + '.m3u8');
+                // hls.loadSource('http://localhost:8080/hls/' + stream + '.m3u8');
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    video.play();
+                });
+            }
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = 'http://13.126.194.8:8080/hls/' + stream + '.m3u8';
+                video.addEventListener('loadedmetadata', function () {
+                    video.play();
+                });
+            }
+        }
+
+        function startStream() {
+            const url = new URL(location.href);
+            let streamKey = url.searchParams.get('key');
+            if (streamKey) {
+                playVideo(streamKey);
+            } else {
+                playVideo();
+            }
+        }
+    </script>
+    <style>
+        div {
+            width: 100%;
+        }
+
+        video,
+        .video {
+            margin: auto;
+            width: 853px;
+            height: 480px;
+        }
+    </style>
+</body>
+
+</html>

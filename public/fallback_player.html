@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  <!-- CSS  -->
+ <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
+
+
+ <!-- HTML -->
+ <div>
+    <video id='hls-example'  class="video-js vjs-default-skin" width="853px" height="480px" controls>
+    </video>
+    <h1>Go Blitz</h1>
+ </div>
+ 
+ 
+ <!-- JS code -->
+ <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+ <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
+ <script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
+ <style>
+     div {
+         width: 100%;
+     }
+
+     video {
+         margin: auto;
+         width: 853px;
+         height: 480px;
+     }
+ </style>
+    <script>
+        streamKey = (new URL(window.location.href)).searchParams.get('key');
+        if(!streamKey) {
+            streamKey = 'shubham';
+        }
+        setSource(streamKey);
+            // var player = videojs('hls-example');
+            // player.play();
+
+        function setSource(key) {
+            const baseUrl = 'http://localhost/hls/';
+            // const baseUrl = 'http://13.126.194.8:8080/hls/';
+            const url = baseUrl + key + '_src.m3u8';
+            const source = document.createElement('source');
+            source.setAttribute('src', url);
+            source.setAttribute('type', 'application/x-mpegURL');
+            document.getElementById('hls-example').appendChild(source);
+            var player = videojs('hls-example');
+            player.play();
+        }
+    </script>
+</body>
+
+</html>
