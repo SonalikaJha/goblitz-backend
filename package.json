@@ -28,7 +28,7 @@
     "nodemailer": "^6.3.1",
     "nodemon": "^2.0.2",
     "s3-upload-stream": "^1.0.7",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "uuid": "^3.4.0",
     "validatorjs": "^3.17.1",
     "web-push": "^3.4.1"
