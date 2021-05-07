@@ -34,6 +34,6 @@
     "web-push": "^3.4.1"
   },
   "devDependencies": {
-    "underscore": "^1.9.2"
+    "underscore": "^1.12.1"
   }
 }
